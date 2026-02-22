@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HomeGym // Dumbbell Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --border: #2a2a3a;
+    --accent: #c8f542;
+    --accent2: #a78bfa;
+    --accent3: #f472b6;
+    --text: #e8e8f0;
+    --muted: #6b6b8a;
+    --tag-bg: rgba(200, 245, 66, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(16px);
+  }
+
+  .logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .logo span { color: var(--muted); }
+
+  nav { display: flex; gap: 2rem; }
+  nav a {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--accent); }
+
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8rem 2.5rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,245,66,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,245,66,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  .hero-glow2 {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(200,245,66,0.07) 0%, transparent 70%);
+    bottom: 0; left: 0;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    position: relative;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--muted);
+  }
+
+  .hero h1 .highlight {
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-meta {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta p {
+    max-width: 380px;
+    font-size: 0.95rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    margin-top: 0.3rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    writing-mode: vertical-rl;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--muted), transparent);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  /* ── EQUIPMENT BAR ── */
+  .equipment-bar {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    overflow-x: auto;
+    background: var(--surface);
+  }
+
+  .eq-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .eq-items {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: nowrap;
+  }
+
+  .eq-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    transition: border-color 0.2s;
+  }
+
+  .eq-chip:hover { border-color: var(--accent); }
+
+  .eq-chip .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    padding: 5rem 2.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 0.7rem;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  .section-count {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── DAY CARDS ── */
+  .days-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5px;
+    border: 1.5px solid var(--border);
+  }
+
+  .day-card {
+    background: var(--surface);
+    padding: 2rem;
+    border: 1.5px solid transparent;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .day-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--card-accent, var(--accent));
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s ease;
+  }
+
+  .day-card:hover { background: var(--surface2); }
+  .day-card:hover::before { transform: scaleY(1); }
+
+  .day-number {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .day-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+  }
+
+  .day-subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--card-accent, var(--accent));
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+  }
+
+  .exercise-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .exercise-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.2s;
+  }
+
+  .exercise-item:last-child { border-bottom: none; }
+  .day-card:hover .exercise-item { padding-left: 0.3rem; }
+
+  .exercise-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .exercise-sets {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .day-footer {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.6rem;
+    background: var(--tag-bg);
+    color: var(--accent);
+    border: 1px solid rgba(200,245,66,0.15);
+  }
+
+  /* day accent colors */
+  .day-1 { --card-accent: #c8f542; --tag-bg: rgba(200,245,66,0.06); }
+  .day-2 { --card-accent: #a78bfa; --tag-bg: rgba(167,139,250,0.06); }
+  .day-3 { --card-accent: #f472b6; --tag-bg: rgba(244,114,182,0.06); }
+  .day-4 { --card-accent: #38bdf8; --tag-bg: rgba(56,189,248,0.06); }
+  .day-5 { --card-accent: #fb923c; --tag-bg: rgba(251,146,60,0.06); }
+
+  .day-2 .tag { color: var(--accent2); border-color: rgba(167,139,250,0.15); }
+  .day-3 .tag { color: var(--accent3); border-color: rgba(244,114,182,0.15); }
+  .day-4 .tag { color: #38bdf8; border-color: rgba(56,189,248,0.15); }
+  .day-5 .tag { color: #fb923c; border-color: rgba(251,146,60,0.15); }
+
+  /* ── PROTOCOL SECTION ── */
+  .protocol-section {
+    margin-top: 5rem;
+  }
+
+  .protocol-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    border: 1.5px solid var(--border);
+    margin-top: 2rem;
+  }
+
+  .protocol-card {
+    background: var(--surface);
+    padding: 2rem;
+    position: relative;
+  }
+
+  .protocol-card:hover { background: var(--surface2); }
+
+  .protocol-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .protocol-title {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+  }
+
+  .protocol-desc {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.6;
+    font-family: 'Space Mono', monospace;
+  }
+
+  .protocol-value {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .day-card:nth-child(1) { animation: fadeUp 0.5s 0.1s ease forwards; opacity: 0; }
+  .day-card:nth-child(2) { animation: fadeUp 0.5s 0.2s ease forwards; opacity: 0; }
+  .day-card:nth-child(3) { animation: fadeUp 0.5s 0.3s ease forwards; opacity: 0; }
+  .day-card:nth-child(4) { animation: fadeUp 0.5s 0.4s ease forwards; opacity: 0; }
+  .day-card:nth-child(5) { animation: fadeUp 0.5s 0.5s ease forwards; opacity: 0; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    header { padding: 1rem 1.5rem; }
+    nav { display: none; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    main { padding: 3rem 1.5rem; }
+    .days-grid { grid-template-columns: 1fr; }
+    .protocol-grid { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; gap: 2rem; }
+    .equipment-bar { padding: 1rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">HomeGym<span>://</span>protocol</div>
+  <nav>
+    <a href="#plan">Plan</a>
+    <a href="#protocol">Protocol</a>
+    <a href="#equipment">Equipment</a>
+  </nav>
+  <div class="badge">v2.0 / 5-day</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-tag">Home Training System</div>
+  <h1>
+    <em>Train</em>
+    <span class="highlight">Smarter.</span>
+    <em>Not</em> Heavier.
+  </h1>
+  <div class="hero-meta">
+    <p>A full 5-day split optimized for tone and fat loss — engineered for minimal equipment. No gym required, zero compromise on results.</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label">Days / Week</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">3kg</span>
+        <span class="stat-label">Dumbbells</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">8kg</span>
+        <span class="stat-label">Kettlebell</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</section>
+
+<!-- EQUIPMENT BAR -->
+<div class="equipment-bar" id="equipment">
+  <span class="eq-label">Required Equipment</span>
+  <div class="eq-items">
+    <div class="eq-chip"><span class="dot"></span>2× Dumbbell 3kg</div>
+    <div class="eq-chip"><span class="dot"></span>1× Kettlebell 8kg</div>
+    <div class="eq-chip"><span class="dot"></span>Chair or Bench</div>
+    <div class="eq-chip"><span class="dot"></span>Flat Floor</div>
+    <div class="eq-chip"><span class="dot"></span>Wall (optional)</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main id="plan">
+
+  <div class="section-header">
+    <span class="section-title">// Weekly Training Split</span>
+    <span class="section-count">05 sessions</span>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- DAY 1 -->
+    <div class="day-card day-1">
+      <div class="day-number">Session 01</div>
+      <div class="day-title">Back + Biceps</div>
+      <div class="day-subtitle">Pull Focus</div>
+      <ul class="exercise-list">
+        <li class="exercise-item">
+          <span class="exercise-name">Kneeling DB Pullover</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">One-Arm KB Row</span>
+          <span class="exercise-sets">3×12 / side</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Bent-Over Rear Delt Fly</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Straight-Arm DB Pullover</span>
+          <span class="exercise-sets">2×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Bicep Curl</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Hammer Curl</span>
+          <span class="exercise-sets">2×15</span>
+        </li>
+      </ul>
+      <div class="day-footer">
+        <span class="tag">Pull Day</span>
+        <span class="tag">Back Width</span>
+        <span class="tag">Arm Definition</span>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div class="day-card day-2">
+      <div class="day-number">Session 02</div>
+      <div class="day-title">Shoulders + Triceps</div>
+      <div class="day-subtitle">Push Focus</div>
+      <ul class="exercise-list">
+        <li class="exercise-item">
+          <span class="exercise-name">Seated DB Shoulder Press</span>
+          <span class="exercise-sets">3×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Lateral Raise</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Front Raise</span>
+          <span class="exercise-sets">2×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Upright Row (light)</span>
+          <span class="exercise-sets">2×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Overhead DB Triceps Extension</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Chair Dips</span>
+          <span class="exercise-sets">2×AMRAP</span>
+        </li>
+      </ul>
+      <div class="day-footer">
+        <span class="tag">Push Day</span>
+        <span class="tag">Light Load</span>
+        <span class="tag">Shoulder-Safe</span>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div class="day-card day-3">
+      <div class="day-number">Session 03</div>
+      <div class="day-title">Legs — Quads</div>
+      <div class="day-subtitle">Lower Body A</div>
+      <ul class="exercise-list">
+        <li class="exercise-item">
+          <span class="exercise-name">Goblet Squat (8kg KB)</span>
+          <span class="exercise-sets">4×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Heel-Elevated Squat</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Bulgarian Split Squat</span>
+          <span class="exercise-sets">3×10 / leg</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Side-Lying Leg Raises</span>
+          <span class="exercise-sets">3×20</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Wall Sit Hold</span>
+          <span class="exercise-sets">3×40 sec</span>
+        </li>
+      </ul>
+      <div class="day-footer">
+        <span class="tag">Quad Drive</span>
+        <span class="tag">Abductor</span>
+        <span class="tag">Isometric</span>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div class="day-card day-4">
+      <div class="day-number">Session 04</div>
+      <div class="day-title">Upper Body Mix</div>
+      <div class="day-subtitle">Full Upper</div>
+      <ul class="exercise-list">
+        <li class="exercise-item">
+          <span class="exercise-name">DB Lateral + Front Combo</span>
+          <span class="exercise-sets">3×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Around-the-World</span>
+          <span class="exercise-sets">2×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Pullover</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">KB Bent-Over Row</span>
+          <span class="exercise-sets">3×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">DB Curl (slow tempo)</span>
+          <span class="exercise-sets">2×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Tricep Kickbacks</span>
+          <span class="exercise-sets">2×15</span>
+        </li>
+      </ul>
+      <div class="day-footer">
+        <span class="tag">Push + Pull</span>
+        <span class="tag">Shoulder Cap</span>
+        <span class="tag">Definition</span>
+      </div>
+    </div>
+
+    <!-- DAY 5 -->
+    <div class="day-card day-5">
+      <div class="day-number">Session 05</div>
+      <div class="day-title">Glutes + Hamstrings</div>
+      <div class="day-subtitle">Lower Body B</div>
+      <ul class="exercise-list">
+        <li class="exercise-item">
+          <span class="exercise-name">KB Hip Thrust</span>
+          <span class="exercise-sets">3×8</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">KB Romanian Deadlift</span>
+          <span class="exercise-sets">3×12</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Quadruped Glute Kickback</span>
+          <span class="exercise-sets">3×15</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Hamstring Walkouts</span>
+          <span class="exercise-sets">2×10</span>
+        </li>
+        <li class="exercise-item">
+          <span class="exercise-name">Floor Back Extension</span>
+          <span class="exercise-sets">2×15</span>
+        </li>
+      </ul>
+      <div class="day-footer">
+        <span class="tag">Glute Peak</span>
+        <span class="tag">Posterior Chain</span>
+        <span class="tag">Hip Hinge</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- PROTOCOL SECTION -->
+  <section class="protocol-section" id="protocol">
+    <div class="section-header">
+      <span class="section-title">// Training Protocol</span>
+      <span class="section-count">key variables</span>
+    </div>
+
+    <div class="protocol-grid">
+      <div class="protocol-card">
+        <div class="protocol-icon">⏱</div>
+        <span class="protocol-value">3 sec</span>
+        <div class="protocol-title">Eccentric Tempo</div>
+        <p class="protocol-desc">Slow the lowering phase to maximize time under tension. This is where toning happens.</p>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-icon">🔄</div>
+        <span class="protocol-value">30–45s</span>
+        <div class="protocol-title">Rest Between Sets</div>
+        <p class="protocol-desc">Short rest windows keep heart rate elevated and increase metabolic demand for fat loss.</p>
+      </div>
+      <div class="protocol-card">
+        <div class="protocol-icon">🚶</div>
+        <span class="protocol-value">Daily</span>
+        <div class="protocol-title">Light Walking</div>
+        <p class="protocol-desc">Low-intensity cardio compounds your results without adding recovery burden.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>HomeGym Protocol v2.0 — 5-Day Split</span>
+  <span>Equipment: 2×3kg + 8kg KB</span>
+  <span>Goal: Tone · Fat Loss · Aesthetic</span>
+</footer>
+
+</body>
+</html>
