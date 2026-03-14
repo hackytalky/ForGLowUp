@@ -3,820 +3,1121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HomeGym // Dumbbell Protocol</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<title>Your Body. Your Plan.</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --surface2: #1a1a24;
-    --border: #2a2a3a;
-    --accent: #c8f542;
-    --accent2: #a78bfa;
-    --accent3: #f472b6;
-    --text: #e8e8f0;
-    --muted: #6b6b8a;
-    --tag-bg: rgba(200, 245, 66, 0.08);
+    --cream: #FAF7F2;
+    --blush: #E8C5B0;
+    --rose: #C97B5A;
+    --terracotta: #A85C3A;
+    --mocha: #3D2314;
+    --soft-brown: #8B5E45;
+    --light-blush: #F5E6DC;
+    --accent: #D4956A;
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
+    background: var(--cream);
+    color: var(--mocha);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
     overflow-x: hidden;
   }
 
-  /* Noise overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0.4;
-  }
-
-  /* ── HEADER ── */
-  header {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 1.2rem 2.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    background: rgba(10,10,15,0.85);
-    backdrop-filter: blur(16px);
-  }
-
-  .logo {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.85rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .logo span { color: var(--muted); }
-
-  nav { display: flex; gap: 2rem; }
-  nav a {
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  nav a:hover { color: var(--accent); }
-
-  .badge {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    padding: 0.3rem 0.8rem;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  /* ── HERO ── */
+  /* HERO */
   .hero {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 8rem 2.5rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     position: relative;
     overflow: hidden;
   }
 
-  .hero-bg-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(200,245,66,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,245,66,0.03) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-
-  .hero-glow {
-    position: absolute;
-    width: 600px; height: 600px;
-    background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%);
-    top: -100px; right: -100px;
-    pointer-events: none;
-  }
-
-  .hero-glow2 {
-    position: absolute;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(200,245,66,0.07) 0%, transparent 70%);
-    bottom: 0; left: 0;
-    pointer-events: none;
-  }
-
-  .hero-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    margin-bottom: 1.5rem;
+  .hero-left {
+    background: var(--mocha);
     display: flex;
-    align-items: center;
-    gap: 0.8rem;
-  }
-
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 30px;
-    height: 1px;
-    background: var(--accent);
-  }
-
-  .hero h1 {
-    font-size: clamp(3rem, 8vw, 7rem);
-    font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
     position: relative;
+    z-index: 2;
   }
 
-  .hero h1 em {
-    font-style: normal;
-    color: transparent;
-    -webkit-text-stroke: 1px var(--muted);
+  .hero-left::after {
+    content: '';
+    position: absolute;
+    right: -40px;
+    top: 0;
+    bottom: 0;
+    width: 80px;
+    background: var(--mocha);
+    clip-path: polygon(0 0, 0 100%, 100% 100%);
+    z-index: 1;
   }
 
-  .hero h1 .highlight {
-    color: var(--accent);
-    display: block;
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--blush);
+    margin-bottom: 24px;
   }
 
-  .hero-meta {
-    margin-top: 3rem;
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    flex-wrap: wrap;
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1.05;
+    margin-bottom: 28px;
   }
 
-  .hero-meta p {
-    max-width: 380px;
-    font-size: 0.95rem;
-    color: var(--muted);
-    line-height: 1.7;
-    font-weight: 400;
+  .hero-title em {
+    font-style: italic;
+    color: var(--blush);
+  }
+
+  .hero-desc {
+    color: rgba(250,247,242,0.6);
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 360px;
+    margin-bottom: 44px;
   }
 
   .hero-stats {
     display: flex;
-    gap: 2rem;
+    gap: 36px;
   }
 
-  .stat-item {
-    text-align: center;
+  .stat {
+    display: flex;
+    flex-direction: column;
   }
 
-  .stat-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 2rem;
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
     font-weight: 700;
-    color: var(--accent);
-    display: block;
+    color: var(--blush);
     line-height: 1;
   }
 
   .stat-label {
-    font-size: 0.65rem;
+    font-size: 10px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    margin-top: 0.3rem;
+    color: rgba(250,247,242,0.4);
+    margin-top: 4px;
+  }
+
+  .hero-right {
+    background: var(--light-blush);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px 60px 80px;
+    position: relative;
+  }
+
+  .hero-right-content {
+    width: 100%;
+    max-width: 340px;
+  }
+
+  .goals-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--soft-brown);
+    margin-bottom: 20px;
+  }
+
+  .goal-tag {
+    display: inline-block;
+    background: white;
+    border: 1px solid var(--blush);
+    color: var(--terracotta);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 8px 16px;
+    border-radius: 100px;
+    margin: 4px;
+    transition: all 0.2s;
+  }
+
+  .goal-tag:hover {
+    background: var(--rose);
+    color: white;
+    border-color: var(--rose);
+    transform: translateY(-2px);
+  }
+
+  .goal-tag.avoid {
+    background: rgba(255,255,255,0.4);
+    border-style: dashed;
+    color: #aaa;
+    text-decoration: line-through;
+    font-size: 11px;
+  }
+
+  .goals-divider {
+    margin: 20px 0 12px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #bbb;
   }
 
   .scroll-hint {
     position: absolute;
-    bottom: 2rem;
-    right: 2.5rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(61,35,20,0.35);
+    font-size: 10px;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    writing-mode: vertical-rl;
+    animation: bounce 2s infinite;
+    z-index: 10;
+  }
+
+  .scroll-hint svg { opacity: 0.4; }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 60px;
     display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .scroll-hint::after {
-    content: '';
-    display: block;
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--muted), transparent);
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(8px); }
-  }
-
-  /* ── EQUIPMENT BAR ── */
-  .equipment-bar {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-    padding: 1rem 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    overflow-x: auto;
-    background: var(--surface);
-  }
-
-  .eq-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .eq-items {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: nowrap;
-  }
-
-  .eq-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1rem;
-    border: 1px solid var(--border);
-    background: var(--surface2);
-    font-size: 0.8rem;
-    white-space: nowrap;
-    font-family: 'Space Mono', monospace;
-    transition: border-color 0.2s;
-  }
-
-  .eq-chip:hover { border-color: var(--accent); }
-
-  .eq-chip .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-
-  /* ── MAIN CONTENT ── */
-  main {
-    padding: 5rem 2.5rem;
-    max-width: 1300px;
-    margin: 0 auto;
-  }
-
-  /* ── SECTION HEADER ── */
-  .section-header {
-    display: flex;
-    align-items: baseline;
     justify-content: space-between;
-    margin-bottom: 3rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--border);
+    align-items: center;
+    mix-blend-mode: normal;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--cream);
+    letter-spacing: 1px;
+  }
+
+  .nav-days {
+    display: flex;
+    gap: 6px;
+  }
+
+  .nav-day {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+
+  .nav-day:hover {
+    background: var(--blush);
+    border-color: var(--blush);
+    color: var(--mocha);
+  }
+
+  /* WEEK OVERVIEW */
+  .section {
+    padding: 100px 60px;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 12px;
   }
 
   .section-title {
-    font-size: 0.7rem;
-    font-family: 'Space Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--muted);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--mocha);
+    margin-bottom: 60px;
   }
 
-  .section-count {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-  }
-
-  /* ── DAY CARDS ── */
-  .days-grid {
+  .week-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 1.5px;
-    border: 1.5px solid var(--border);
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 80px;
   }
 
-  .day-card {
-    background: var(--surface);
-    padding: 2rem;
-    border: 1.5px solid transparent;
+  .week-card {
+    border-radius: 12px;
+    padding: 20px 14px;
+    text-align: center;
+    transition: transform 0.2s;
     position: relative;
     overflow: hidden;
-    transition: background 0.3s;
-    cursor: default;
+    cursor: pointer;
   }
 
-  .day-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 3px;
-    height: 100%;
-    background: var(--card-accent, var(--accent));
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition: transform 0.3s ease;
+  .week-card:hover { transform: translateY(-4px); }
+
+  .week-card.active {
+    background: var(--mocha);
+    color: var(--cream);
   }
 
-  .day-card:hover { background: var(--surface2); }
-  .day-card:hover::before { transform: scaleY(1); }
+  .week-card.active .wc-day { color: var(--blush); }
+  .week-card.active .wc-name { color: var(--cream); }
+  .week-card.active .wc-focus { color: rgba(250,247,242,0.5); }
 
-  .day-number {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
+  .week-card.rest {
+    background: var(--light-blush);
+    border: 1px dashed var(--blush);
+  }
+
+  .week-card:not(.active):not(.rest) {
+    background: white;
+    border: 1px solid rgba(200,180,160,0.3);
+  }
+
+  .wc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+  }
+
+  .wc-day {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    margin-bottom: 0.5rem;
+    color: var(--rose);
+    margin-bottom: 6px;
+  }
+
+  .wc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--mocha);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .wc-focus {
+    font-size: 10px;
+    color: var(--soft-brown);
+    opacity: 0.7;
+  }
+
+  /* DAY CARDS */
+  .days-section {
+    background: var(--mocha);
+    padding: 100px 60px;
+  }
+
+  .days-section .section-title { color: var(--cream); }
+  .days-section .section-eyebrow { color: var(--blush); }
+
+  .day-block {
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .day-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .day-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: start;
+    margin-bottom: 28px;
+  }
+
+  .day-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(232,197,176,0.12);
+    line-height: 0.85;
+    user-select: none;
+  }
+
+  .day-info {}
+
+  .day-tag {
+    display: inline-block;
+    background: var(--rose);
+    color: white;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 100px;
+    margin-bottom: 10px;
   }
 
   .day-title {
-    font-size: 1.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 0.4rem;
-    color: var(--text);
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+    margin-bottom: 6px;
   }
 
   .day-subtitle {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--card-accent, var(--accent));
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 2rem;
+    font-size: 13px;
+    color: rgba(250,247,242,0.4);
+    font-style: italic;
   }
 
-  .exercise-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .exercise-item {
+  .exercises-grid {
     display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+    padding-left: 96px;
+  }
+
+  .exercise-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(232,197,176,0.12);
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
     align-items: center;
-    padding: 0.7rem 0;
-    border-bottom: 1px solid var(--border);
-    transition: padding-left 0.2s;
+    gap: 16px;
+    transition: all 0.2s;
   }
 
-  .exercise-item:last-child { border-bottom: none; }
-  .day-card:hover .exercise-item { padding-left: 0.3rem; }
-
-  .exercise-name {
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--text);
+  .exercise-card:hover {
+    background: rgba(232,197,176,0.08);
+    border-color: rgba(232,197,176,0.25);
+    transform: translateX(4px);
   }
 
-  .exercise-sets {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--muted);
-    text-align: right;
-    white-space: nowrap;
+  .ex-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(232,197,176,0.25);
+    min-width: 28px;
   }
 
-  .day-footer {
-    margin-top: 1.5rem;
+  .ex-info { flex: 1; }
+
+  .ex-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--cream);
+    margin-bottom: 3px;
+  }
+
+  .ex-sets {
+    font-size: 11px;
+    color: var(--blush);
+    opacity: 0.7;
+  }
+
+  .ex-icon {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: var(--rose);
     display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    opacity: 0.7;
   }
 
-  .tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    padding: 0.25rem 0.6rem;
-    background: var(--tag-bg);
-    color: var(--accent);
-    border: 1px solid rgba(200,245,66,0.15);
+  .finisher-card {
+    padding-left: 96px;
+    margin-top: 16px;
   }
 
-  /* day accent colors */
-  .day-1 { --card-accent: #c8f542; --tag-bg: rgba(200,245,66,0.06); }
-  .day-2 { --card-accent: #a78bfa; --tag-bg: rgba(167,139,250,0.06); }
-  .day-3 { --card-accent: #f472b6; --tag-bg: rgba(244,114,182,0.06); }
-  .day-4 { --card-accent: #38bdf8; --tag-bg: rgba(56,189,248,0.06); }
-  .day-5 { --card-accent: #fb923c; --tag-bg: rgba(251,146,60,0.06); }
-
-  .day-2 .tag { color: var(--accent2); border-color: rgba(167,139,250,0.15); }
-  .day-3 .tag { color: var(--accent3); border-color: rgba(244,114,182,0.15); }
-  .day-4 .tag { color: #38bdf8; border-color: rgba(56,189,248,0.15); }
-  .day-5 .tag { color: #fb923c; border-color: rgba(251,146,60,0.15); }
-
-  /* ── PROTOCOL SECTION ── */
-  .protocol-section {
-    margin-top: 5rem;
+  .finisher-inner {
+    background: linear-gradient(135deg, rgba(201,123,90,0.2), rgba(168,92,58,0.1));
+    border: 1px solid rgba(201,123,90,0.3);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
-  .protocol-grid {
+  .finisher-emoji { font-size: 18px; }
+
+  .finisher-text {
+    font-size: 13px;
+    color: var(--blush);
+    font-weight: 500;
+  }
+
+  .day-divider {
+    border: none;
+    border-top: 1px solid rgba(232,197,176,0.08);
+    margin: 48px 0;
+  }
+
+  /* TIPS */
+  .tips-section {
+    padding: 100px 60px;
+    background: var(--light-blush);
+  }
+
+  .tips-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5px;
-    border: 1.5px solid var(--border);
-    margin-top: 2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
   }
 
-  .protocol-card {
-    background: var(--surface);
-    padding: 2rem;
+  .tip-card {
+    background: white;
+    border-radius: 16px;
+    padding: 36px;
     position: relative;
+    overflow: hidden;
   }
 
-  .protocol-card:hover { background: var(--surface2); }
-
-  .protocol-icon {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+  .tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
   }
 
-  .protocol-title {
-    font-size: 1rem;
+  .tip-card.green::before { background: linear-gradient(90deg, #7BAE8A, #A3C9A8); }
+  .tip-card.rose::before { background: linear-gradient(90deg, var(--rose), var(--blush)); }
+  .tip-card.dark::before { background: linear-gradient(90deg, var(--mocha), var(--soft-brown)); }
+  .tip-card.gold::before { background: linear-gradient(90deg, #C9A84C, #E8C870); }
+
+  .tip-icon { font-size: 28px; margin-bottom: 16px; }
+
+  .tip-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
     font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.5rem;
+    color: var(--mocha);
+    margin-bottom: 16px;
   }
 
-  .protocol-desc {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.6;
-    font-family: 'Space Mono', monospace;
-  }
-
-  .protocol-value {
-    font-family: 'Space Mono', monospace;
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--accent);
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 2rem 2.5rem;
+  .tip-item {
     display: flex;
-    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--soft-brown);
+    line-height: 1.6;
+  }
+
+  .tip-item-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
     align-items: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    color: var(--muted);
+    justify-content: center;
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .tip-item-icon.check { background: #D4EDD8; color: #4A8A56; }
+  .tip-item-icon.x { background: #FFE0DC; color: #C05050; }
+  .tip-item-icon.dot { background: var(--blush); color: var(--terracotta); }
+
+  .tempo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .tempo-box {
+    background: var(--light-blush);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .tempo-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--terracotta);
+  }
+
+  .tempo-label {
+    font-size: 10px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    color: var(--soft-brown);
+    opacity: 0.7;
+    margin-top: 2px;
   }
 
-  /* ── ANIMATIONS ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.6s ease forwards;
+  /* FOOTER */
+  footer {
+    background: var(--mocha);
+    color: rgba(250,247,242,0.4);
+    text-align: center;
+    padding: 40px;
+    font-size: 12px;
+    letter-spacing: 1px;
   }
 
+  footer span { color: var(--blush); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left::after { display: none; }
+    .hero-right { padding: 60px 40px; }
+    .week-grid { grid-template-columns: repeat(4, 1fr); }
+    .section { padding: 70px 30px; }
+    .days-section { padding: 70px 30px; }
+    .tips-section { padding: 70px 30px; }
+    .tips-grid { grid-template-columns: 1fr; }
+    nav { padding: 20px 30px; }
+    .exercises-grid { padding-left: 0; }
+    .finisher-card { padding-left: 0; }
+  }
+
+  @media (max-width: 500px) {
+    .week-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero-stats { gap: 20px; }
+  }
+
+  /* ANIMATIONS */
   @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .day-card:nth-child(1) { animation: fadeUp 0.5s 0.1s ease forwards; opacity: 0; }
-  .day-card:nth-child(2) { animation: fadeUp 0.5s 0.2s ease forwards; opacity: 0; }
-  .day-card:nth-child(3) { animation: fadeUp 0.5s 0.3s ease forwards; opacity: 0; }
-  .day-card:nth-child(4) { animation: fadeUp 0.5s 0.4s ease forwards; opacity: 0; }
-  .day-card:nth-child(5) { animation: fadeUp 0.5s 0.5s ease forwards; opacity: 0; }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    header { padding: 1rem 1.5rem; }
-    nav { display: none; }
-    .hero { padding: 7rem 1.5rem 3rem; }
-    main { padding: 3rem 1.5rem; }
-    .days-grid { grid-template-columns: 1fr; }
-    .protocol-grid { grid-template-columns: 1fr; }
-    .hero-meta { flex-direction: column; gap: 2rem; }
-    .equipment-bar { padding: 1rem 1.5rem; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease 0.1s both; }
+  .hero-title { animation: fadeUp 0.6s ease 0.2s both; }
+  .hero-desc { animation: fadeUp 0.6s ease 0.35s both; }
+  .hero-stats { animation: fadeUp 0.6s ease 0.5s both; }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header>
-  <div class="logo">HomeGym<span>://</span>protocol</div>
-  <nav>
-    <a href="#plan">Plan</a>
-    <a href="#protocol">Protocol</a>
-    <a href="#equipment">Equipment</a>
-  </nav>
-  <div class="badge">v2.0 / 5-day</div>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Shape Plan</div>
+  <div class="nav-days">
+    <a class="nav-day" href="#day1">1</a>
+    <a class="nav-day" href="#day2">2</a>
+    <a class="nav-day" href="#day3">3</a>
+    <a class="nav-day" href="#day4">4</a>
+    <a class="nav-day" href="#day5">5</a>
+  </div>
+</nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
-  <div class="hero-tag">Home Training System</div>
-  <h1>
-    <em>Train</em>
-    <span class="highlight">Smarter.</span>
-    <em>Not</em> Heavier.
-  </h1>
-  <div class="hero-meta">
-    <p>A full 5-day split optimized for tone and fat loss — engineered for minimal equipment. No gym required, zero compromise on results.</p>
+  <div class="hero-left">
+    <div class="hero-eyebrow">5-Day Home Workout Plan</div>
+    <h1 class="hero-title">Shape <em>you.</em><br>Your rules.</h1>
+    <p class="hero-desc">Optimized for 3kg dumbbells + 8kg kettlebell. Designed to sculpt shoulders, grow round glutes, and define your waist — without bulking your legs.</p>
     <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-num">5</span>
-        <span class="stat-label">Days / Week</span>
+      <div class="stat">
+        <span class="stat-number">5</span>
+        <span class="stat-label">Days / week</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">3kg</span>
-        <span class="stat-label">Dumbbells</span>
+      <div class="stat">
+        <span class="stat-number">2</span>
+        <span class="stat-label">Rest days</span>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">8kg</span>
-        <span class="stat-label">Kettlebell</span>
+      <div class="stat">
+        <span class="stat-number">8kg</span>
+        <span class="stat-label">Max weight</span>
       </div>
     </div>
   </div>
-  <div class="scroll-hint">scroll</div>
+  <div class="hero-right">
+    <div class="hero-right-content">
+      <div class="goals-label">Your Focus Areas</div>
+      <div>
+        <span class="goal-tag">🍑 Round Glutes</span>
+        <span class="goal-tag">💪 Shoulders</span>
+        <span class="goal-tag">🔙 Back</span>
+        <span class="goal-tag">💎 Triceps</span>
+        <span class="goal-tag">🔥 Abs (no obliques)</span>
+        <span class="goal-tag">🦵 Slim Legs</span>
+      </div>
+      <div class="goals-divider">Avoiding</div>
+      <div>
+        <span class="goal-tag avoid">Heavy Squats</span>
+        <span class="goal-tag avoid">Heavy Lunges</span>
+        <span class="goal-tag avoid">Oblique Work</span>
+        <span class="goal-tag avoid">Quad Builders</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    Scroll
+  </div>
 </section>
 
-<!-- EQUIPMENT BAR -->
-<div class="equipment-bar" id="equipment">
-  <span class="eq-label">Required Equipment</span>
-  <div class="eq-items">
-    <div class="eq-chip"><span class="dot"></span>2× Dumbbell 3kg</div>
-    <div class="eq-chip"><span class="dot"></span>1× Kettlebell 8kg</div>
-    <div class="eq-chip"><span class="dot"></span>Chair or Bench</div>
-    <div class="eq-chip"><span class="dot"></span>Flat Floor</div>
-    <div class="eq-chip"><span class="dot"></span>Wall (optional)</div>
+<!-- WEEKLY OVERVIEW -->
+<section class="section">
+  <div class="section-eyebrow">Weekly Structure</div>
+  <h2 class="section-title">Your week, planned.</h2>
+  <div class="week-grid">
+    <div class="week-card active">
+      <div class="wc-dot" style="background:var(--rose)"></div>
+      <div class="wc-day">Mon</div>
+      <div class="wc-name">Shoulders & Triceps</div>
+      <div class="wc-focus">Priority day</div>
+    </div>
+    <div class="week-card">
+      <div class="wc-dot" style="background:#C9A84C"></div>
+      <div class="wc-day">Tue</div>
+      <div class="wc-name">Glutes</div>
+      <div class="wc-focus">Isolation focus</div>
+    </div>
+    <div class="week-card">
+      <div class="wc-dot" style="background:var(--soft-brown)"></div>
+      <div class="wc-day">Wed</div>
+      <div class="wc-name">Back & Biceps</div>
+      <div class="wc-focus">V-shape builder</div>
+    </div>
+    <div class="week-card">
+      <div class="wc-dot" style="background:#7BAE8A"></div>
+      <div class="wc-day">Thu</div>
+      <div class="wc-name">Core + Upper</div>
+      <div class="wc-focus">No obliques</div>
+    </div>
+    <div class="week-card">
+      <div class="wc-dot" style="background:#C9A84C"></div>
+      <div class="wc-day">Fri</div>
+      <div class="wc-name">Glutes & Hams</div>
+      <div class="wc-focus">Side glutes 🍑</div>
+    </div>
+    <div class="week-card rest">
+      <div class="wc-dot" style="background:rgba(139,94,69,0.3)"></div>
+      <div class="wc-day">Sat</div>
+      <div class="wc-name" style="color:var(--soft-brown);opacity:0.6">Rest</div>
+      <div class="wc-focus">Recovery</div>
+    </div>
+    <div class="week-card rest">
+      <div class="wc-dot" style="background:rgba(139,94,69,0.3)"></div>
+      <div class="wc-day">Sun</div>
+      <div class="wc-name" style="color:var(--soft-brown);opacity:0.6">Rest</div>
+      <div class="wc-focus">Recovery</div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- MAIN -->
-<main id="plan">
+<!-- WORKOUT DAYS -->
+<section class="days-section">
+  <div class="section-eyebrow">The Plan</div>
+  <h2 class="section-title" style="color:var(--cream)">Day by day.</h2>
 
-  <div class="section-header">
-    <span class="section-title">// Weekly Training Split</span>
-    <span class="section-count">05 sessions</span>
-  </div>
-
-  <div class="days-grid">
-
-    <!-- DAY 1 -->
-    <div class="day-card day-1">
-      <div class="day-number">Session 01</div>
-      <div class="day-title">Back + Biceps</div>
-      <div class="day-subtitle">Pull Focus</div>
-      <ul class="exercise-list">
-        <li class="exercise-item">
-          <span class="exercise-name">Kneeling DB Pullover</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">One-Arm KB Row</span>
-          <span class="exercise-sets">3×12 / side</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Bent-Over Rear Delt Fly</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Straight-Arm DB Pullover</span>
-          <span class="exercise-sets">2×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Bicep Curl</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Hammer Curl</span>
-          <span class="exercise-sets">2×15</span>
-        </li>
-      </ul>
-      <div class="day-footer">
-        <span class="tag">Pull Day</span>
-        <span class="tag">Back Width</span>
-        <span class="tag">Arm Definition</span>
+  <!-- DAY 1 -->
+  <div class="day-block" id="day1">
+    <div class="day-header">
+      <div class="day-num">01</div>
+      <div class="day-info">
+        <span class="day-tag">Monday · Priority</span>
+        <div class="day-title">Shoulders & Triceps</div>
+        <div class="day-subtitle">Your main shaping day — don't skip this one.</div>
       </div>
     </div>
-
-    <!-- DAY 2 -->
-    <div class="day-card day-2">
-      <div class="day-number">Session 02</div>
-      <div class="day-title">Shoulders + Triceps</div>
-      <div class="day-subtitle">Push Focus</div>
-      <ul class="exercise-list">
-        <li class="exercise-item">
-          <span class="exercise-name">Seated DB Shoulder Press</span>
-          <span class="exercise-sets">3×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Lateral Raise</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Front Raise</span>
-          <span class="exercise-sets">2×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Upright Row (light)</span>
-          <span class="exercise-sets">2×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Overhead DB Triceps Extension</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Chair Dips</span>
-          <span class="exercise-sets">2×AMRAP</span>
-        </li>
-      </ul>
-      <div class="day-footer">
-        <span class="tag">Push Day</span>
-        <span class="tag">Light Load</span>
-        <span class="tag">Shoulder-Safe</span>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-num">1</div>
+        <div class="ex-info"><div class="ex-name">Dumbbell Shoulder Press</div><div class="ex-sets">4 sets × 12 reps</div></div>
+        <div class="ex-icon">🏋️</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">2</div>
+        <div class="ex-info"><div class="ex-name">Lateral Raises</div><div class="ex-sets">4 sets × 15 reps</div></div>
+        <div class="ex-icon">💪</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">3</div>
+        <div class="ex-info"><div class="ex-name">Front Raises</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">⬆️</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">4</div>
+        <div class="ex-info"><div class="ex-name">Upright Rows</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">🔝</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">5</div>
+        <div class="ex-info"><div class="ex-name">Overhead Tricep Extension</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">💎</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">6</div>
+        <div class="ex-info"><div class="ex-name">Chair Dips</div><div class="ex-sets">3 sets × 10 reps</div></div>
+        <div class="ex-icon">🪑</div>
       </div>
     </div>
-
-    <!-- DAY 3 -->
-    <div class="day-card day-3">
-      <div class="day-number">Session 03</div>
-      <div class="day-title">Legs — Quads</div>
-      <div class="day-subtitle">Lower Body A</div>
-      <ul class="exercise-list">
-        <li class="exercise-item">
-          <span class="exercise-name">Goblet Squat (8kg KB)</span>
-          <span class="exercise-sets">4×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Heel-Elevated Squat</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Bulgarian Split Squat</span>
-          <span class="exercise-sets">3×10 / leg</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Side-Lying Leg Raises</span>
-          <span class="exercise-sets">3×20</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Wall Sit Hold</span>
-          <span class="exercise-sets">3×40 sec</span>
-        </li>
-      </ul>
-      <div class="day-footer">
-        <span class="tag">Quad Drive</span>
-        <span class="tag">Abductor</span>
-        <span class="tag">Isometric</span>
+    <div class="finisher-card">
+      <div class="finisher-inner">
+        <div class="finisher-emoji">🔥</div>
+        <div class="finisher-text">Finisher: Lateral Raise Hold — 20 seconds × 3 sets</div>
       </div>
     </div>
-
-    <!-- DAY 4 -->
-    <div class="day-card day-4">
-      <div class="day-number">Session 04</div>
-      <div class="day-title">Upper Body Mix</div>
-      <div class="day-subtitle">Full Upper</div>
-      <ul class="exercise-list">
-        <li class="exercise-item">
-          <span class="exercise-name">DB Lateral + Front Combo</span>
-          <span class="exercise-sets">3×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Around-the-World</span>
-          <span class="exercise-sets">2×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Pullover</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">KB Bent-Over Row</span>
-          <span class="exercise-sets">3×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">DB Curl (slow tempo)</span>
-          <span class="exercise-sets">2×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Tricep Kickbacks</span>
-          <span class="exercise-sets">2×15</span>
-        </li>
-      </ul>
-      <div class="day-footer">
-        <span class="tag">Push + Pull</span>
-        <span class="tag">Shoulder Cap</span>
-        <span class="tag">Definition</span>
-      </div>
-    </div>
-
-    <!-- DAY 5 -->
-    <div class="day-card day-5">
-      <div class="day-number">Session 05</div>
-      <div class="day-title">Glutes + Hamstrings</div>
-      <div class="day-subtitle">Lower Body B</div>
-      <ul class="exercise-list">
-        <li class="exercise-item">
-          <span class="exercise-name">KB Hip Thrust</span>
-          <span class="exercise-sets">3×8</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">KB Romanian Deadlift</span>
-          <span class="exercise-sets">3×12</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Quadruped Glute Kickback</span>
-          <span class="exercise-sets">3×15</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Hamstring Walkouts</span>
-          <span class="exercise-sets">2×10</span>
-        </li>
-        <li class="exercise-item">
-          <span class="exercise-name">Floor Back Extension</span>
-          <span class="exercise-sets">2×15</span>
-        </li>
-      </ul>
-      <div class="day-footer">
-        <span class="tag">Glute Peak</span>
-        <span class="tag">Posterior Chain</span>
-        <span class="tag">Hip Hinge</span>
-      </div>
-    </div>
-
   </div>
 
-  <!-- PROTOCOL SECTION -->
-  <section class="protocol-section" id="protocol">
-    <div class="section-header">
-      <span class="section-title">// Training Protocol</span>
-      <span class="section-count">key variables</span>
-    </div>
+  <hr class="day-divider">
 
-    <div class="protocol-grid">
-      <div class="protocol-card">
-        <div class="protocol-icon">⏱</div>
-        <span class="protocol-value">3 sec</span>
-        <div class="protocol-title">Eccentric Tempo</div>
-        <p class="protocol-desc">Slow the lowering phase to maximize time under tension. This is where toning happens.</p>
-      </div>
-      <div class="protocol-card">
-        <div class="protocol-icon">🔄</div>
-        <span class="protocol-value">30–45s</span>
-        <div class="protocol-title">Rest Between Sets</div>
-        <p class="protocol-desc">Short rest windows keep heart rate elevated and increase metabolic demand for fat loss.</p>
-      </div>
-      <div class="protocol-card">
-        <div class="protocol-icon">🚶</div>
-        <span class="protocol-value">Daily</span>
-        <div class="protocol-title">Light Walking</div>
-        <p class="protocol-desc">Low-intensity cardio compounds your results without adding recovery burden.</p>
+  <!-- DAY 2 -->
+  <div class="day-block" id="day2">
+    <div class="day-header">
+      <div class="day-num">02</div>
+      <div class="day-info">
+        <span class="day-tag" style="background:var(--accent)">Tuesday · Glutes</span>
+        <div class="day-title">Glute Isolation Day</div>
+        <div class="day-subtitle">Squeeze at the top. Every. Single. Rep.</div>
       </div>
     </div>
-  </section>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-num">1</div>
+        <div class="ex-info"><div class="ex-name">Kettlebell Hip Thrust</div><div class="ex-sets">4 sets × 12 reps</div></div>
+        <div class="ex-icon">🍑</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">2</div>
+        <div class="ex-info"><div class="ex-name">Glute Bridges</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">🌉</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">3</div>
+        <div class="ex-info"><div class="ex-name">Donkey Kicks</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">🦵</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">4</div>
+        <div class="ex-info"><div class="ex-name">Fire Hydrants</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">💧</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">5</div>
+        <div class="ex-info"><div class="ex-name">Glute Bridge Hold</div><div class="ex-sets">30 seconds × 3 holds</div></div>
+        <div class="ex-icon">⏱️</div>
+      </div>
+    </div>
+  </div>
 
-</main>
+  <hr class="day-divider">
 
-<!-- FOOTER -->
+  <!-- DAY 3 -->
+  <div class="day-block" id="day3">
+    <div class="day-header">
+      <div class="day-num">03</div>
+      <div class="day-info">
+        <span class="day-tag" style="background:var(--soft-brown)">Wednesday · Back</span>
+        <div class="day-title">Back & Biceps</div>
+        <div class="day-subtitle">Build that V-shape for a slimmer-looking waist.</div>
+      </div>
+    </div>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-num">1</div>
+        <div class="ex-info"><div class="ex-name">Bent Over Dumbbell Row</div><div class="ex-sets">4 sets × 12 reps</div></div>
+        <div class="ex-icon">🔙</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">2</div>
+        <div class="ex-info"><div class="ex-name">Single Arm Kettlebell Row</div><div class="ex-sets">3 sets × 10 reps</div></div>
+        <div class="ex-icon">🏋️</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">3</div>
+        <div class="ex-info"><div class="ex-name">Reverse Dumbbell Fly</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">🦅</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">4</div>
+        <div class="ex-info"><div class="ex-name">Dumbbell Pullover</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">💪</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">5</div>
+        <div class="ex-info"><div class="ex-name">Bicep Curl</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">💎</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">6</div>
+        <div class="ex-info"><div class="ex-name">Hammer Curl</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">🔨</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="day-divider">
+
+  <!-- DAY 4 -->
+  <div class="day-block" id="day4">
+    <div class="day-header">
+      <div class="day-num">04</div>
+      <div class="day-info">
+        <span class="day-tag" style="background:#4A8A56">Thursday · Core</span>
+        <div class="day-title">Core + Upper Body</div>
+        <div class="day-subtitle">Flat abs without oblique work — smart and intentional.</div>
+      </div>
+    </div>
+    <div style="padding-left:96px; margin-bottom:12px;">
+      <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,197,176,0.4);margin-bottom:12px;">Core Block</div>
+    </div>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-num">1</div>
+        <div class="ex-info"><div class="ex-name">Leg Raises</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">🔢</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">2</div>
+        <div class="ex-info"><div class="ex-name">Reverse Crunch</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">🔄</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">3</div>
+        <div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">🐛</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">4</div>
+        <div class="ex-info"><div class="ex-name">Plank</div><div class="ex-sets">30 seconds × 3 holds</div></div>
+        <div class="ex-icon">⏱️</div>
+      </div>
+    </div>
+    <div style="padding-left:96px; margin:20px 0 12px;">
+      <div style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(232,197,176,0.4);">Upper Body Block</div>
+    </div>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-num">5</div>
+        <div class="ex-info"><div class="ex-name">Lateral → Front Raise</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">💪</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">6</div>
+        <div class="ex-info"><div class="ex-name">Tricep Kickbacks</div><div class="ex-sets">3 sets × 12 reps</div></div>
+        <div class="ex-icon">💎</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">7</div>
+        <div class="ex-info"><div class="ex-name">Reverse Fly</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">🦅</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="day-divider">
+
+  <!-- DAY 5 -->
+  <div class="day-block" id="day5">
+    <div class="day-header">
+      <div class="day-num">05</div>
+      <div class="day-info">
+        <span class="day-tag" style="background:var(--accent)">Friday · Glutes & Hams</span>
+        <div class="day-title">Glutes & Hamstrings</div>
+        <div class="day-subtitle">Grow the glutes, not the thighs. Side glute focus for roundness.</div>
+      </div>
+    </div>
+    <div class="exercises-grid">
+      <div class="exercise-card">
+        <div class="ex-num">1</div>
+        <div class="ex-info"><div class="ex-name">Kettlebell Hip Thrust</div><div class="ex-sets">4 sets × 10 reps</div></div>
+        <div class="ex-icon">🍑</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">2</div>
+        <div class="ex-info"><div class="ex-name">Romanian Deadlift</div><div class="ex-sets">4 sets × 12 reps</div></div>
+        <div class="ex-icon">🏋️</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">3</div>
+        <div class="ex-info"><div class="ex-name">Single Leg Glute Bridge</div><div class="ex-sets">3 sets × 10 reps</div></div>
+        <div class="ex-icon">🌉</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">4</div>
+        <div class="ex-info"><div class="ex-name">Donkey Kicks</div><div class="ex-sets">3 sets × 15 reps</div></div>
+        <div class="ex-icon">🦵</div>
+      </div>
+      <div class="exercise-card">
+        <div class="ex-num">5</div>
+        <div class="ex-info"><div class="ex-name">Frog Pumps</div><div class="ex-sets">3 sets × 20 reps</div></div>
+        <div class="ex-icon">🐸</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPS -->
+<section class="tips-section">
+  <div class="section-eyebrow">The Details</div>
+  <h2 class="section-title">Tips that make it work.</h2>
+  <div class="tips-grid">
+
+    <div class="tip-card rose">
+      <div class="tip-icon">⏱️</div>
+      <div class="tip-title">Light Weight Secret</div>
+      <div class="tempo-grid">
+        <div class="tempo-box">
+          <div class="tempo-value">3s</div>
+          <div class="tempo-label">Slow down</div>
+        </div>
+        <div class="tempo-box">
+          <div class="tempo-value">2s</div>
+          <div class="tempo-label">Pause top</div>
+        </div>
+        <div class="tempo-box">
+          <div class="tempo-value">12–20</div>
+          <div class="tempo-label">High reps</div>
+        </div>
+        <div class="tempo-box">
+          <div class="tempo-value">30–45s</div>
+          <div class="tempo-label">Short rest</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tip-card green">
+      <div class="tip-icon">✅</div>
+      <div class="tip-title">For Slim Legs — Do This</div>
+      <div class="tip-item">
+        <div class="tip-item-icon check">✓</div>
+        <span>Hip Thrusts — glute-dominant, not quad</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon check">✓</div>
+        <span>Glute Bridges — low leg involvement</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon check">✓</div>
+        <span>Kickbacks — isolates glutes completely</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon check">✓</div>
+        <span>Romanian Deadlift — hamstrings + glutes</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon x">✗</div>
+        <span>Heavy squats, lunges, leg press</span>
+      </div>
+    </div>
+
+    <div class="tip-card gold">
+      <div class="tip-icon">🍑</div>
+      <div class="tip-title">Round Glute Shape</div>
+      <div class="tip-item">
+        <div class="tip-item-icon dot">→</div>
+        <span>Most people neglect <strong>side glutes</strong> — the ones that create the round, curved shape and hip width.</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon dot">→</div>
+        <span>Fire Hydrants and lateral moves directly hit the <em>gluteus medius</em> for that hip pop.</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon dot">→</div>
+        <span>Frog Pumps target the inner + lower glute for fullness from every angle.</span>
+      </div>
+    </div>
+
+    <div class="tip-card dark">
+      <div class="tip-icon">📐</div>
+      <div class="tip-title">The V-Shape Illusion</div>
+      <div class="tip-item">
+        <div class="tip-item-icon dot">→</div>
+        <span>Building your <strong>back and shoulders</strong> creates a wider upper frame.</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon dot">→</div>
+        <span>This makes your waist appear <strong>naturally slimmer</strong> even without losing fat there.</span>
+      </div>
+      <div class="tip-item">
+        <div class="tip-item-icon dot">→</div>
+        <span>Core work without obliques keeps your waist <strong>tight and neat</strong>, not blocky.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <footer>
-  <span>HomeGym Protocol v2.0 — 5-Day Split</span>
-  <span>Equipment: 2×3kg + 8kg KB</span>
-  <span>Goal: Tone · Fat Loss · Aesthetic</span>
+  Made with 🍑 for your goals — <span>Shoulders · Glutes · Back · Abs · Slim Legs</span>
 </footer>
 
+<script>
+  // Intersection Observer for scroll animations
+  const blocks = document.querySelectorAll('.day-block');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+  blocks.forEach(b => observer.observe(b));
+
+  // Nav color change on scroll
+  const heroLeft = document.querySelector('.hero-left');
+  const nav = document.querySelector('nav');
+  const navLogo = document.querySelector('.nav-logo');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 0.8) {
+      nav.style.background = 'rgba(250,247,242,0.95)';
+      nav.style.backdropFilter = 'blur(10px)';
+      navLogo.style.color = '#3D2314';
+      document.querySelectorAll('.nav-day').forEach(d => {
+        d.style.borderColor = 'rgba(61,35,20,0.2)';
+        d.style.color = 'rgba(61,35,20,0.6)';
+      });
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+      navLogo.style.color = '#FAF7F2';
+      document.querySelectorAll('.nav-day').forEach(d => {
+        d.style.borderColor = 'rgba(255,255,255,0.2)';
+        d.style.color = 'rgba(255,255,255,0.5)';
+      });
+    }
+  });
+</script>
 </body>
 </html>
